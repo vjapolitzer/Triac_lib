@@ -16,8 +16,8 @@
 #define AC_FREQUENCY 60
 // The external interrupt pin - DO NOT CHANGE
 #define TRIAC_ZERO_CROSS_PIN 2
-// Cycles to drive triac pin
-#define TRIAC_ON_CYCLES 4
+// Cycles for propagation delay of triac driver
+#define TRIAC_ON_CYCLES 18
 
 // Macros for timer configuration
 #define _TCNT(X) TCNT ## X

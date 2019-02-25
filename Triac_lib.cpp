@@ -2,6 +2,8 @@
 #include "Triac_lib.h"
 
 // Phase delay time table (calculated for 50us timer with 60Hz AC power)
+// TODO: end of range (162) should be 146 to ensure enough cycles for
+//       propagation delay of the triac driver
 static const uint8_t power2cycles[] PROGMEM = {
   167, 162, 160, 159, 157, 156, 155, 154, 153, 152,
   151, 150, 150, 149, 148, 147, 146, 145, 145, 144,
@@ -87,7 +89,7 @@ void triacTimerISR()
 {
   Triac::timerCycles++;
 
-  // Turn triac pins on or off as needed
+  // Turn triac pins on or off according to the set phase delay
   for (uint8_t i = 0; i < Triac::numTriacs; i++)
   {
     if (Triac::timerCycles >= Triac::phaseDelay[i] + TRIAC_ON_CYCLES)
@@ -99,7 +101,8 @@ void triacTimerISR()
 
 void zeroCrossISR()
 {
-  // Clear the timer and counter
+  // Clear the timer and counter to start counting
+  // from the moment of zero crossing
   TCNT(TRIAC_TIMER) = 0;
   Triac::timerCycles = 0;
 }
