@@ -77,7 +77,8 @@
 
 #endif
 
-class Triac {
+class Triac
+{
   public:
     /* Constructor
      * ...Parameters:
