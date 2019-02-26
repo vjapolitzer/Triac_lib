@@ -77,12 +77,8 @@
 
 #endif
 
-<<<<<<< Updated upstream
 class Triac
 {
-=======
-class Triac {
->>>>>>> Stashed changes
     public:
         /* Constructor
         * ...Parameters:
@@ -131,15 +127,9 @@ class Triac {
         static uint8_t numTriacs; // number of instantiated Triacs
 
         // Triac pin and phase variables. Static class arrays for faster execution
-<<<<<<< Updated upstream
-        static volatile uint8_t* triacPinPorts[MAX_TRIAC]; // ports and pin masks
-        static uint8_t triacPinMasks[MAX_TRIAC];           // for fast GPIO 
-        static uint8_t phaseDelay[MAX_TRIAC];              // phase delay time (in timer cycles)
-=======
         static volatile uint8_t* triacPinPorts[]; // ports and pin masks
         static uint8_t triacPinMasks[];           // for fast GPIO 
         static uint8_t phaseDelay[];              // phase delay time (in timer cycles)
->>>>>>> Stashed changes
 
         // Timer cycles since zero crossing
         static volatile uint8_t timerCycles;
