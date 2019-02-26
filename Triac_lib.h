@@ -79,68 +79,68 @@
 
 class Triac
 {
-  public:
-    /* Constructor
-     * ...Parameters:
-     * ......uint8_t pin -- pin for activating triac
-     * ...Returns:
-     * ......Nothing
-     */
-    Triac(uint8_t);
+    public:
+        /* Constructor
+        * ...Parameters:
+        * ......uint8_t pin -- pin for activating triac
+        * ...Returns:
+        * ......Nothing
+        */
+        Triac(uint8_t);
 
-    /* begin()
-     * ...Configures and enables interrupts and timers
-     * ...Only call ONCE
-     * ...Returns:
-     * ......Nothing
-     */
-    void begin();
+        /* begin()
+        * ...Configures and enables interrupts and timers
+        * ...Only call ONCE
+        * ...Returns:
+        * ......Nothing
+        */
+        void begin();
 
-    /* set(...)
-     * Sets the desired load power from 0-165
-     * ...Parameters:
-     * ......uint8_t powerLevel
-     * ...Returns:
-     * ......Nothing
-     */
-    void set(uint8_t);
+        /* set(...)
+        * Sets the desired load power from 0-165
+        * ...Parameters:
+        * ......uint8_t powerLevel
+        * ...Returns:
+        * ......Nothing
+        */
+        void set(uint8_t);
 
-    /* off()
-     * Turns off load (same as set(0))
-     * ...Returns:
-     * ......Nothing
-     */
-    void off();
+        /* off()
+        * Turns off load (same as set(0))
+        * ...Returns:
+        * ......Nothing
+        */
+        void off();
 
-    /* getPower()
-     * ...Returns:
-     * ......Current load power setting from 0-165
-     */
-    uint8_t getPower();
+        /* getPower()
+        * ...Returns:
+        * ......Current load power setting from 0-165
+        */
+        uint8_t getPower();
 
-  private:
-    // Instance variables
-    uint8_t triacIndex; // index of instance in static class arrays
-    uint8_t powerLevel;
+    private:
+        // Instance variables
+        uint8_t triacIndex; // index of instance in static class arrays
+        uint8_t powerLevel;
 
-    // Class variables
-    static uint8_t numTriacs; // number of instantiated Triacs
+        // Class variables
+        static uint8_t numTriacs; // number of instantiated Triacs
 
-    // Triac pin and phase variables. Static class arrays for faster execution
-    static volatile uint8_t* triacPinPorts[MAX_TRIAC]; // ports and pin masks
-    static uint8_t triacPinMasks[MAX_TRIAC];           // for fast GPIO 
-    static uint8_t phaseDelay[MAX_TRIAC];              // phase delay time (in timer cycles)
+        // Triac pin and phase variables. Static class arrays for faster execution
+        static volatile uint8_t* triacPinPorts[MAX_TRIAC]; // ports and pin masks
+        static uint8_t triacPinMasks[MAX_TRIAC];           // for fast GPIO 
+        static uint8_t phaseDelay[MAX_TRIAC];              // phase delay time (in timer cycles)
 
-    // Timer cycles since zero crossing
-    static volatile uint8_t timerCycles;
+        // Timer cycles since zero crossing
+        static volatile uint8_t timerCycles;
 
-    // initialize timer and interrupts
-    void timerInit();
-    void extIntInit();
+        // initialize timer and interrupts
+        void timerInit();
+        void extIntInit();
 
-    // Interrupt service routines
-    friend void triacTimerISR();
-    friend void zeroCrossISR();
+        // Interrupt service routines
+        friend void triacTimerISR();
+        friend void zeroCrossISR();
 };
 
 #endif
