@@ -18,6 +18,8 @@
 #define TRIAC_ZERO_CROSS_PIN 2
 // Cycles for propagation delay of triac driver
 #define TRIAC_ON_CYCLES 18
+// Max phase delay array index
+#define MAX_POWER 165
 
 // Macros for timer configuration
 #define _TCNT(X) TCNT ## X
@@ -111,6 +113,13 @@ class Triac
         * ......Nothing
         */
         void off();
+
+        /* on()
+        * Turns on load (same as set(MAX_POWER))
+        * ...Returns:
+        * ......Nothing
+        */
+        void on();
 
         /* getPower()
         * ...Returns:

@@ -51,7 +51,7 @@ void Triac::begin()
 
 void Triac::set(uint8_t powerLevel)
 {
-    if (powerLevel > 165) powerLevel = 165;
+    if (powerLevel > MAX_POWER) powerLevel = MAX_POWER;
 
     if (powerLevel != this->powerLevel)
     {
@@ -63,6 +63,11 @@ void Triac::set(uint8_t powerLevel)
 void Triac::off()
 {
     Triac::set(0);
+}
+
+void Triac::on()
+{
+    Triac::set(MAX_POWER);
 }
 
 uint8_t Triac::getPower()
