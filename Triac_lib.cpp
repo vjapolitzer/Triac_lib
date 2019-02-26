@@ -76,7 +76,8 @@ uint8_t Triac::getPower()
 }
 
 void Triac::timerInit()
-{// Setup timer to cycle every 50us when AC at 60Hz
+{
+    // Setup timer to cycle every 50us when AC at 60Hz
     TCNT(TRIAC_TIMER) = 0;                            // Clear timer count register
     TCCRxA(TRIAC_TIMER) = TCCRxA_VALUE;               // Timer config byte A
     TCCRxB(TRIAC_TIMER) = TCCRxB_VALUE;               // Timer config byte B
