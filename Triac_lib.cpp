@@ -24,6 +24,12 @@ static const uint8_t power2cycles[] PROGMEM = {
     35,  32,  29,  25,  20,  0
 };
 
+uint8_t Triac::numTriacs = 0;
+volatile uint8_t* Triac::triacPinPorts[MAX_TRIAC];
+uint8_t Triac::triacPinMasks[MAX_TRIAC];
+uint8_t Triac::phaseDelay[MAX_TRIAC];
+volatile uint8_t Triac::timerCycles = 0;
+
 Triac::Triac(uint8_t pin) :
        powerLevel(0)
 {
@@ -37,9 +43,6 @@ Triac::Triac(uint8_t pin) :
         digitalWrite(pin, LOW);
     }
 }
-
-uint8_t Triac::numTriacs = 0;
-volatile uint8_t Triac::timerCycles = 0;
 
 void Triac::begin()
 {
@@ -78,7 +81,7 @@ void Triac::timerInit()
     OCRxA(TRIAC_TIMER) = 100 * 60 / AC_FREQUENCY - 1; // Timer compare value
 }
 
-void extIntInit()
+void Triac::extIntInit()
 {
     EICRX &= ~0xFF;                     // Clear the External Interrupt Control Register
     EIMSK |= (1 << INTx);               // Enable the external interrupt
@@ -89,7 +92,11 @@ void triacTimerISR()
 {
     Triac::timerCycles++;
 
+<<<<<<< Updated upstream
     // Turn triac pins on or off according to the set phase delay
+=======
+    // Turn triac pins on or off as needed
+>>>>>>> Stashed changes
     for (uint8_t i = 0; i < Triac::numTriacs; i++)
     {
         if (Triac::timerCycles >= Triac::phaseDelay[i] + TRIAC_ON_CYCLES)
@@ -101,8 +108,12 @@ void triacTimerISR()
 
 void zeroCrossISR()
 {
+<<<<<<< Updated upstream
     // Clear the timer and counter to start counting
     // from the moment of zero crossing
+=======
+    // Clear the timer and counter
+>>>>>>> Stashed changes
     TCNT(TRIAC_TIMER) = 0;
     Triac::timerCycles = 0;
 }
